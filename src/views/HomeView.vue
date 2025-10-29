@@ -73,51 +73,169 @@ const handleSearch = () => {
       </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features">
-      <div class="container">
-        <h2 class="section-title">Tại sao chọn chúng tôi?</h2>
-        <div class="features-grid">
-          <div class="feature-card">
-            <div class="feature-icon">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
-                  stroke="currentColor"
-                  stroke-width="2"
-                />
-              </svg>
-            </div>
-            <h3>Đặt phòng dễ dàng</h3>
-            <p>Quy trình đặt phòng đơn giản, nhanh chóng chỉ với vài click chuột</p>
+    <!-- Welcome Section -->
+    <section class="welcome-section">
+      <div class="welcome-container">
+        <div class="welcome-content">
+          <!-- Left Side - Image -->
+          <div class="welcome-image">
+            <img
+              src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&h=400&fit=crop&crop=center"
+              alt="Sunset Hotel Terrace"
+              class="welcome-img"
+            />
           </div>
 
-          <div class="feature-card">
-            <div class="feature-icon">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M12 2L15.09 8.26L22 9L17 14L18.18 21L12 17.77L5.82 21L7 14L2 9L8.91 8.26L12 2Z"
-                  stroke="currentColor"
-                  stroke-width="2"
-                />
-              </svg>
+          <!-- Right Side - Content -->
+          <div class="welcome-text">
+            <div class="section-header">
+              <span class="section-subtitle">ABOUT US</span>
+              <h2 class="section-title">Sunset Hotel - Your home</h2>
             </div>
-            <h3>Chất lượng đảm bảo</h3>
-            <p>Tất cả homestay đều được kiểm duyệt kỹ càng về chất lượng và tiện nghi</p>
+
+            <div class="welcome-description">
+              <p>
+                Sunset Hotel is located in the west of Hanoi. Sunset Hotel is a great destination
+                and brings you the most enjoyable experience when you come to us. Come to Sunset
+                Hotel, you will be immersed in fresh nature, to participate in leisure activities,
+                relax to take away the sorrows and chaos of life. Sunset Hotel with all kinds of
+                amenities and modern bungalows combined traditional style, restaurant system,
+                conference room.
+              </p>
+
+              <p>
+                Sunset Hotel with fully furnished rooms and villas, interior space is decorated in
+                luxurious style mixed with traditional Vietnamese and modern Western. We have well
+                trained, professional and professional staff, dedicated service.
+              </p>
+            </div>
+
+            <button class="learn-more-btn">LEARN MORE</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Our Best Rooms Section -->
+    <section class="best-rooms">
+      <div class="rooms-container">
+        <div class="section-header">
+          <h2 class="section-title">OUR BEST ROOM</h2>
+        </div>
+
+        <div class="rooms-grid">
+          <!-- Room 1 -->
+          <div class="room-card">
+            <div class="room-image">
+              <img
+                src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=400&h=300&fit=crop&crop=center"
+                alt="Senior De. City view"
+                class="room-img"
+              />
+              <div class="room-overlay">
+                <h3 class="room-name">Senior De. City view</h3>
+                <p class="room-price">$ 77 / night</p>
+              </div>
+            </div>
           </div>
 
-          <div class="feature-card">
-            <div class="feature-icon">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M22 16.92V18C22 18.5304 21.7893 19.0391 21.4142 19.4142C21.0391 19.7893 20.5304 20 20 20H4C3.46957 20 2.96086 19.7893 2.58579 19.4142C2.21071 19.0391 2 18.5304 2 18V16.92L12 12L22 16.92Z"
-                  stroke="currentColor"
-                  stroke-width="2"
-                />
-              </svg>
+          <!-- Room 2 -->
+          <div class="room-card">
+            <div class="room-image">
+              <img
+                src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=400&h=300&fit=crop&crop=center"
+                alt="Connecting Room"
+                class="room-img"
+              />
+              <div class="room-overlay">
+                <h3 class="room-name">Connecting Room</h3>
+                <p class="room-price">$ 116 / night</p>
+              </div>
             </div>
-            <h3>Hỗ trợ 24/7</h3>
-            <p>Đội ngũ hỗ trợ khách hàng luôn sẵn sàng giúp đỡ bạn mọi lúc mọi nơi</p>
+          </div>
+
+          <!-- Room 3 -->
+          <div class="room-card">
+            <div class="room-image">
+              <img
+                src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=400&h=300&fit=crop&crop=center"
+                alt="Balcony Triple Suite"
+                class="room-img"
+              />
+              <div class="room-overlay">
+                <h3 class="room-name">Balcony Triple Suite</h3>
+                <p class="room-price">$ 88 / night</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Room 4 -->
+          <div class="room-card">
+            <div class="room-image">
+              <img
+                src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=400&h=300&fit=crop&crop=center"
+                alt="Balcony Family Suite"
+                class="room-img"
+              />
+              <div class="room-overlay">
+                <h3 class="room-name">Balcony Family Suite</h3>
+                <p class="room-price">$ 102 / night</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="see-all-container">
+          <router-link to="/rooms" class="see-all-btn">SEE ALL ROOMS</router-link>
+        </div>
+      </div>
+    </section>
+
+    <!-- Welcome to Sunset Hotel Section -->
+    <section class="welcome-sunset">
+      <div class="welcome-sunset-container">
+        <!-- Header -->
+        <div class="welcome-header">
+          <h1 class="welcome-title">
+            WELCOME TO <span class="sunset-highlight">SUNSET HOTEL</span>
+          </h1>
+        </div>
+
+        <div class="welcome-content-layout">
+          <!-- Left Side - Hotel Image -->
+          <div class="hotel-image-section">
+            <img
+              src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=700&h=500&fit=crop&crop=center"
+              alt="Sunset Hotel Terrace"
+              class="hotel-image"
+            />
+          </div>
+
+          <!-- Right Side - About Content -->
+          <div class="about-content">
+            <div class="about-header">
+              <span class="about-subtitle">ABOUT US</span>
+              <h2 class="about-title">Sunset Hotel - Your home</h2>
+            </div>
+
+            <div class="about-description">
+              <p>
+                Sunset Hotel is located in the west of Hanoi. Sunset Hotel is a great destination
+                and brings you the most enjoyable experience when you come to us. Come to Sunset
+                Hotel, you will be immersed in fresh nature, to participate in leisure activities,
+                relax to take away the sorrows and chaos of life. Sunset Hotel with all kinds of
+                amenities and modern bungalows combined traditional style, restaurant system,
+                conference room.
+              </p>
+
+              <p>
+                Sunset Hotel with fully furnished rooms and villas, interior space is decorated in
+                luxurious style mixed with traditional Vietnamese and modern Western. We have well
+                trained, professional and professional staff, dedicated service.
+              </p>
+            </div>
+
+            <button class="learn-more-button">LEARN MORE</button>
           </div>
         </div>
       </div>
@@ -321,47 +439,116 @@ const handleSearch = () => {
   background: #f8f9fa;
 }
 
+/* Welcome to Sunset Hotel Section */
+.welcome-sunset {
+  padding: 100px 0;
+  background: #ffffff;
+}
+
+.welcome-sunset-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.welcome-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.welcome-title {
+  font-size: 3rem;
+  font-weight: 300;
+  color: #6c757d;
+  letter-spacing: 3px;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.sunset-highlight {
+  color: #d4a574;
+}
+
+.welcome-content-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.hotel-image-section {
+  position: relative;
+}
+
+.hotel-image {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+  border-radius: 0;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.about-content {
+  padding: 40px 0;
+}
+
+.about-header {
+  margin-bottom: 40px;
+}
+
+.about-subtitle {
+  display: block;
+  color: #d4a574;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+.about-title {
+  font-size: 2.8rem;
+  font-weight: 300;
+  color: #495057;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.about-description {
+  margin-bottom: 50px;
+}
+
+.about-description p {
+  color: #6c757d;
+  line-height: 1.8;
+  margin-bottom: 25px;
+  font-size: 1rem;
+  text-align: justify;
+}
+
+.learn-more-button {
+  background: transparent;
+  color: #d4a574;
+  border: 1px solid #d4a574;
+  padding: 12px 30px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 0;
+}
+
+.learn-more-button:hover {
+  background: #d4a574;
+  color: white;
+}
+
 .features-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
-}
-
-.feature-card {
-  background: white;
-  padding: 2rem;
-  border-radius: 16px;
-  text-align: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease;
-}
-
-.feature-card:hover {
-  transform: translateY(-4px);
-}
-
-.feature-icon {
-  width: 60px;
-  height: 60px;
-  margin: 0 auto 1.5rem;
-  color: #667eea;
-}
-
-.feature-icon svg {
-  width: 100%;
-  height: 100%;
-}
-
-.feature-card h3 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  color: #333;
-}
-
-.feature-card p {
-  color: #666;
-  line-height: 1.6;
 }
 
 .destinations {
@@ -467,6 +654,202 @@ const handleSearch = () => {
   color: #667eea;
 }
 
+/* Welcome Section */
+.welcome-section {
+  padding: 100px 0;
+  background: #f8f9fa;
+}
+
+.welcome-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.welcome-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.welcome-image {
+  position: relative;
+}
+
+.welcome-img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-text {
+  padding: 20px 0;
+}
+
+.section-header {
+  margin-bottom: 30px;
+}
+
+.section-subtitle {
+  color: #d4a574;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.welcome-text .section-title {
+  color: #2c3e50;
+  font-size: 2.5rem;
+  font-weight: 300;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.welcome-description {
+  margin-bottom: 40px;
+}
+
+.welcome-description p {
+  color: #666;
+  line-height: 1.8;
+  margin-bottom: 20px;
+  font-size: 1rem;
+}
+
+.learn-more-btn {
+  background: transparent;
+  color: #d4a574;
+  border: 2px solid #d4a574;
+  padding: 12px 30px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.learn-more-btn:hover {
+  background: #d4a574;
+  color: white;
+}
+
+/* Best Rooms Section */
+.best-rooms {
+  padding: 100px 0;
+  background: white;
+}
+
+.rooms-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.best-rooms .section-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.best-rooms .section-title {
+  color: #d4a574;
+  font-size: 2.5rem;
+  font-weight: 300;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.rooms-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
+.room-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.room-card:hover {
+  transform: translateY(-5px);
+}
+
+.room-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.room-img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.room-card:hover .room-img {
+  transform: scale(1.05);
+}
+
+.room-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  color: white;
+  padding: 30px 20px 20px;
+}
+
+.room-name {
+  font-size: 1.3rem;
+  font-weight: 400;
+  margin-bottom: 8px;
+  color: white;
+}
+
+.room-price {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #d4a574;
+  margin: 0;
+}
+
+.see-all-container {
+  text-align: center;
+}
+
+.see-all-btn {
+  display: inline-block;
+  background: transparent;
+  color: #d4a574;
+  border: 2px solid #d4a574;
+  padding: 15px 40px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.see-all-btn:hover {
+  background: #d4a574;
+  color: white;
+  transform: translateY(-2px);
+}
+
 @media (max-width: 768px) {
   .hero-title {
     font-size: 2.5rem;
@@ -505,6 +888,93 @@ const handleSearch = () => {
 
   .cta-btn {
     width: 200px;
+  }
+
+  /* Welcome to Sunset Hotel Mobile */
+  .welcome-sunset {
+    padding: 60px 0;
+  }
+
+  .welcome-title {
+    font-size: 2rem;
+    letter-spacing: 2px;
+  }
+
+  .welcome-content-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .hotel-image {
+    height: 300px;
+  }
+
+  .about-title {
+    font-size: 2rem;
+  }
+
+  .about-content {
+    padding: 20px 0;
+    text-align: center;
+  }
+
+  .about-description p {
+    text-align: left;
+  }
+
+  .learn-more-button {
+    width: 100%;
+    max-width: 250px;
+  }
+
+  /* Welcome Section Mobile */
+  .welcome-section {
+    padding: 60px 0;
+  }
+
+  .welcome-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .welcome-text .section-title {
+    font-size: 2rem;
+  }
+
+  .welcome-img {
+    height: 300px;
+  }
+
+  /* Best Rooms Mobile */
+  .best-rooms {
+    padding: 60px 0;
+  }
+
+  .best-rooms .section-title {
+    font-size: 2rem;
+    letter-spacing: 2px;
+  }
+
+  .rooms-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .room-img {
+    height: 250px;
+  }
+
+  .room-overlay {
+    padding: 20px 15px 15px;
+  }
+
+  .room-name {
+    font-size: 1.1rem;
+  }
+
+  .room-price {
+    font-size: 1rem;
   }
 }
 </style>

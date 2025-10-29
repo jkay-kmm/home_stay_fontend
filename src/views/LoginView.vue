@@ -8,6 +8,16 @@
         </div>
 
         <form @submit.prevent="handleLogin" class="login-form">
+          <!-- Error Message -->
+          <div v-if="errorMessage" class="error-alert">
+            <svg class="error-icon" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+              <line x1="15" y1="9" x2="9" y2="15" stroke="currentColor" stroke-width="2" />
+              <line x1="9" y1="9" x2="15" y2="15" stroke="currentColor" stroke-width="2" />
+            </svg>
+            {{ errorMessage }}
+          </div>
+
           <div class="form-group">
             <label for="email">Email</label>
             <input
@@ -39,8 +49,8 @@
             <a href="#" class="forgot-password">Quên mật khẩu?</a>
           </div>
 
-          <button type="submit" class="login-btn" :disabled="isLoading">
-            <span v-if="isLoading">Đang đăng nhập...</span>
+          <button type="submit" class="login-btn" :disabled="authStore.isLoading">
+            <span v-if="authStore.isLoading">Đang đăng nhập...</span>
             <span v-else>Đăng nhập</span>
           </button>
 
@@ -92,9 +102,12 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/auth.js'
+import { useToast } from '@/composables/useToast.js'
 
 const router = useRouter()
-const isLoading = ref(false)
+const authStore = useAuthStore()
+const { showLoginSuccess, showError } = useToast()
 
 const loginForm = reactive({
   email: '',
@@ -102,22 +115,29 @@ const loginForm = reactive({
   rememberMe: false,
 })
 
+const errorMessage = ref('')
+
 const handleLogin = async () => {
-  isLoading.value = true
+  errorMessage.value = ''
 
   try {
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+    const response = await authStore.login({
+      email: loginForm.email,
+      password: loginForm.password,
+      rememberMe: loginForm.rememberMe,
+    })
 
-    // TODO: Implement actual login logic
-    console.log('Login data:', loginForm)
+    // Show success toast
+    const userName = response.user?.name || authStore.userName
+    showLoginSuccess(userName)
 
     // Redirect to home page after successful login
-    router.push('/')
+    setTimeout(() => {
+      router.push('/')
+    }, 5000) // Wait for toast to finish
   } catch (error) {
-    console.error('Login failed:', error)
-  } finally {
-    isLoading.value = false
+    errorMessage.value = error.message || 'Đăng nhập thất bại. Vui lòng thử lại.'
+    showError(error.message || 'Đăng nhập thất bại. Vui lòng thử lại.')
   }
 }
 </script>
@@ -171,6 +191,25 @@ const handleLogin = async () => {
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+
+.error-alert {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  color: #dc2626;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.error-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
 }
 
 .form-group {

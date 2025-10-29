@@ -1,6 +1,8 @@
 <script setup>
 import { RouterView } from 'vue-router'
 import AppNavigation from './components/AppNavigation.vue'
+import AppFooter from './components/AppFooter.vue'
+import ToastContainer from './components/ToastContainer.vue'
 </script>
 
 <template>
@@ -9,6 +11,8 @@ import AppNavigation from './components/AppNavigation.vue'
     <main class="main-content">
       <RouterView />
     </main>
+    <AppFooter />
+    <ToastContainer />
   </div>
 </template>
 
@@ -21,12 +25,5 @@ import AppNavigation from './components/AppNavigation.vue'
 
 .main-content {
   flex: 1;
-  padding-top: 80px; /* Account for fixed navbar */
-}
-
-@media (max-width: 768px) {
-  .main-content {
-    padding-top: 70px;
-  }
 }
 </style>

@@ -15,6 +15,16 @@
         </div>
 
         <form @submit.prevent="handleRegister" class="register-form">
+          <!-- Error Message -->
+          <div v-if="errorMessage" class="error-alert">
+            <svg class="error-icon" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+              <line x1="15" y1="9" x2="9" y2="15" stroke="currentColor" stroke-width="2" />
+              <line x1="9" y1="9" x2="15" y2="15" stroke="currentColor" stroke-width="2" />
+            </svg>
+            {{ errorMessage }}
+          </div>
+
           <div class="form-row">
             <div class="form-group">
               <label for="firstName">Họ</label>
@@ -116,8 +126,12 @@
             </label>
           </div>
 
-          <button type="submit" class="register-btn" :disabled="isLoading || !isFormValid">
-            <span v-if="isLoading">Đang đăng ký...</span>
+          <button
+            type="submit"
+            class="register-btn"
+            :disabled="authStore.isLoading || !isFormValid"
+          >
+            <span v-if="authStore.isLoading">Đang đăng ký...</span>
             <span v-else>Đăng ký</span>
           </button>
 
@@ -162,9 +176,13 @@
 <script setup>
 import { ref, reactive, computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/auth.js'
+import { useToast } from '@/composables/useToast.js'
 
 const router = useRouter()
-const isLoading = ref(false)
+const authStore = useAuthStore()
+const { showRegisterSuccess, showError } = useToast()
+const errorMessage = ref('')
 
 const registerForm = reactive({
   firstName: '',
@@ -216,10 +234,8 @@ const isFormValid = computed(() => {
     registerForm.firstName &&
     registerForm.lastName &&
     registerForm.email &&
-    registerForm.phone &&
     registerForm.password &&
     registerForm.confirmPassword &&
-    registerForm.userType &&
     registerForm.agreeTerms &&
     passwordsMatch.value &&
     passwordStrength.value >= 2
@@ -229,21 +245,26 @@ const isFormValid = computed(() => {
 const handleRegister = async () => {
   if (!isFormValid.value) return
 
-  isLoading.value = true
+  errorMessage.value = ''
 
   try {
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500))
+    await authStore.register({
+      firstName: registerForm.firstName,
+      lastName: registerForm.lastName,
+      email: registerForm.email,
+      password: registerForm.password,
+    })
 
-    // TODO: Implement actual registration logic
-    console.log('Registration data:', registerForm)
+    // Hiển thị thông báo thành công
+    showRegisterSuccess()
 
     // Redirect to login page after successful registration
-    router.push('/login')
+    setTimeout(() => {
+      router.push('/login')
+    }, 5000)
   } catch (error) {
-    console.error('Registration failed:', error)
-  } finally {
-    isLoading.value = false
+    showError(error.message || 'Đăng ký thất bại. Vui lòng thử lại.')
+    errorMessage.value = error.message || 'Đăng ký thất bại. Vui lòng thử lại.'
   }
 }
 </script>
