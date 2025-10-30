@@ -23,40 +23,40 @@ const handleSearch = () => {
       </div>
       <div class="hero-content">
         <div class="container">
-          <h1 class="hero-title">Khám phá những homestay tuyệt vời</h1>
-          <p class="hero-subtitle">Tìm kiếm và đặt phòng lưu trú độc đáo cho chuyến đi của bạn</p>
+          <h1 class="hero-title">Explore wonderful homestays.</h1>
+          <p class="hero-subtitle">Search for and book unique accommodations for your trip.</p>
 
           <!-- Search Form -->
           <div class="search-card">
             <form @submit.prevent="handleSearch" class="search-form">
               <div class="search-group">
-                <label for="location">Địa điểm</label>
+                <label for="location">Location</label>
                 <input
                   type="text"
                   id="location"
                   v-model="searchForm.location"
-                  placeholder="Bạn muốn đi đâu?"
+                  placeholder="Where do you want to go?"
                 />
               </div>
 
               <div class="search-group">
-                <label for="checkIn">Ngày nhận phòng</label>
+                <label for="checkIn">Check-in date</label>
                 <input type="date" id="checkIn" v-model="searchForm.checkIn" />
               </div>
 
               <div class="search-group">
-                <label for="checkOut">Ngày trả phòng</label>
+                <label for="checkOut">Check-out date</label>
                 <input type="date" id="checkOut" v-model="searchForm.checkOut" />
               </div>
 
               <div class="search-group">
-                <label for="guests">Số khách</label>
+                <label for="guests">number of guests</label>
                 <select id="guests" v-model="searchForm.guests">
-                  <option value="1">1 khách</option>
-                  <option value="2">2 khách</option>
-                  <option value="3">3 khách</option>
-                  <option value="4">4 khách</option>
-                  <option value="5">5+ khách</option>
+                  <option value="1">1 guest</option>
+                  <option value="2">2 guests</option>
+                  <option value="3">3 guests</option>
+                  <option value="4">4 guests</option>
+                  <option value="5">5+ guests</option>
                 </select>
               </div>
 
@@ -65,7 +65,7 @@ const handleSearch = () => {
                   <circle cx="11" cy="11" r="8" />
                   <path d="m21 21-4.35-4.35" />
                 </svg>
-                Tìm kiếm
+                Search
               </button>
             </form>
           </div>
@@ -81,7 +81,7 @@ const handleSearch = () => {
           <div class="welcome-image">
             <img
               src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&h=400&fit=crop&crop=center"
-              alt="Sunset Hotel Terrace"
+              alt="Blue Hotel Terrace"
               class="welcome-img"
             />
           </div>
@@ -90,21 +90,21 @@ const handleSearch = () => {
           <div class="welcome-text">
             <div class="section-header">
               <span class="section-subtitle">ABOUT US</span>
-              <h2 class="section-title">Sunset Hotel - Your home</h2>
+              <h2 class="section-title">Blue Hotel - Your home</h2>
             </div>
 
             <div class="welcome-description">
               <p>
-                Sunset Hotel is located in the west of Hanoi. Sunset Hotel is a great destination
-                and brings you the most enjoyable experience when you come to us. Come to Sunset
+                Blue Hotel is located in the west of Hanoi. Blue Hotel is a great destination
+                and brings you the most enjoyable experience when you come to us. Come to Blue
                 Hotel, you will be immersed in fresh nature, to participate in leisure activities,
-                relax to take away the sorrows and chaos of life. Sunset Hotel with all kinds of
+                relax to take away the sorrows and chaos of life. Blue Hotel with all kinds of
                 amenities and modern bungalows combined traditional style, restaurant system,
                 conference room.
               </p>
 
               <p>
-                Sunset Hotel with fully furnished rooms and villas, interior space is decorated in
+                Blue Hotel with fully furnished rooms and villas, interior space is decorated in
                 luxurious style mixed with traditional Vietnamese and modern Western. We have well
                 trained, professional and professional staff, dedicated service.
               </p>
@@ -191,13 +191,13 @@ const handleSearch = () => {
       </div>
     </section>
 
-    <!-- Welcome to Sunset Hotel Section -->
-    <section class="welcome-sunset">
-      <div class="welcome-sunset-container">
+    <!-- Welcome to Blue Hotel Section -->
+    <section class="welcome-blue">
+      <div class="welcome-blue-container">
         <!-- Header -->
         <div class="welcome-header">
           <h1 class="welcome-title">
-            WELCOME TO <span class="sunset-highlight">SUNSET HOTEL</span>
+            WELCOME TO <span class="blue-highlight">Blue HOTEL</span>
           </h1>
         </div>
 
@@ -206,7 +206,7 @@ const handleSearch = () => {
           <div class="hotel-image-section">
             <img
               src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=700&h=500&fit=crop&crop=center"
-              alt="Sunset Hotel Terrace"
+              alt="Blue Hotel Terrace"
               class="hotel-image"
             />
           </div>
@@ -215,21 +215,21 @@ const handleSearch = () => {
           <div class="about-content">
             <div class="about-header">
               <span class="about-subtitle">ABOUT US</span>
-              <h2 class="about-title">Sunset Hotel - Your home</h2>
+              <h2 class="about-title">Blue Hotel - Your home</h2>
             </div>
 
             <div class="about-description">
               <p>
-                Sunset Hotel is located in the west of Hanoi. Sunset Hotel is a great destination
-                and brings you the most enjoyable experience when you come to us. Come to Sunset
+                Blue Hotel is located in the west of Hanoi. Blue Hotel is a great destination
+                and brings you the most enjoyable experience when you come to us. Come to Blue
                 Hotel, you will be immersed in fresh nature, to participate in leisure activities,
-                relax to take away the sorrows and chaos of life. Sunset Hotel with all kinds of
+                relax to take away the sorrows and chaos of life. Blue Hotel with all kinds of
                 amenities and modern bungalows combined traditional style, restaurant system,
                 conference room.
               </p>
 
               <p>
-                Sunset Hotel with fully furnished rooms and villas, interior space is decorated in
+                Blue Hotel with fully furnished rooms and villas, interior space is decorated in
                 luxurious style mixed with traditional Vietnamese and modern Western. We have well
                 trained, professional and professional staff, dedicated service.
               </p>
@@ -241,66 +241,9 @@ const handleSearch = () => {
       </div>
     </section>
 
-    <!-- Popular Destinations -->
-    <section class="destinations">
-      <div class="container">
-        <h2 class="section-title">Điểm đến phổ biến</h2>
-        <div class="destinations-grid">
-          <div class="destination-card">
-            <div class="destination-image">
-              <div class="destination-overlay">
-                <h3>Hà Nội</h3>
-                <p>120+ homestay</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="destination-card">
-            <div class="destination-image">
-              <div class="destination-overlay">
-                <h3>Đà Lạt</h3>
-                <p>85+ homestay</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="destination-card">
-            <div class="destination-image">
-              <div class="destination-overlay">
-                <h3>Sapa</h3>
-                <p>95+ homestay</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="destination-card">
-            <div class="destination-image">
-              <div class="destination-overlay">
-                <h3>Hội An</h3>
-                <p>75+ homestay</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta">
-      <div class="container">
-        <div class="cta-content">
-          <h2>Sẵn sàng cho chuyến đi tiếp theo?</h2>
-          <p>Đăng ký ngay để nhận những ưu đãi đặc biệt và khám phá thế giới homestay</p>
-          <div class="cta-buttons">
-            <router-link to="/register" class="cta-btn primary">Đăng ký ngay</router-link>
-            <router-link to="/login" class="cta-btn secondary">Đăng nhập</router-link>
-          </div>
-        </div>
-      </div>
-    </section>
   </div>
 </template>
-
+// THEMAPISAU
 <style scoped>
 .home-page {
   min-height: 100vh;
@@ -320,8 +263,7 @@ const handleSearch = () => {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="%23ffffff" opacity="0.1"/></pattern></defs><rect width="1000" height="1000" fill="url(%23grid)"/></svg>');
+  background: url('@/assets/anhnen.jpg') center center / cover no-repeat;
 }
 
 .hero-overlay {
@@ -439,13 +381,13 @@ const handleSearch = () => {
   background: #f8f9fa;
 }
 
-/* Welcome to Sunset Hotel Section */
-.welcome-sunset {
+/* Welcome to Blue Hotel Section */
+.welcome-blue {
   padding: 100px 0;
   background: #ffffff;
 }
 
-.welcome-sunset-container {
+.welcome-blue-container {
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 20px;
@@ -465,7 +407,7 @@ const handleSearch = () => {
   text-transform: uppercase;
 }
 
-.sunset-highlight {
+.blue-highlight {
   color: #d4a574;
 }
 
@@ -890,8 +832,8 @@ const handleSearch = () => {
     width: 200px;
   }
 
-  /* Welcome to Sunset Hotel Mobile */
-  .welcome-sunset {
+  /* Welcome to Blue Hotel Mobile */
+  .welcome-blue {
     padding: 60px 0;
   }
 

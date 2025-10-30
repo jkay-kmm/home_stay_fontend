@@ -22,7 +22,7 @@
               <div class="contact-icon">📞</div>
               <div class="contact-details">
                 <h4>TEL</h4>
-                <p>0242 2420 777</p>
+                <p>0329 586 459</p>
               </div>
             </div>
 
@@ -30,7 +30,7 @@
               <div class="contact-icon">✉️</div>
               <div class="contact-details">
                 <h4>E-MAIL</h4>
-                <p>info@webhotel.vn</p>
+                <p>dangkien03@webhotel.vn</p>
               </div>
             </div>
           </div>
@@ -46,7 +46,7 @@
                 allowfullscreen=""
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"
-                title="Sunset Hotel Location"
+                title="Blue Hotel Location"
               ></iframe>
             </div>
           </div>
@@ -96,6 +96,29 @@
       </div>
     </div>
 
+ <template>
+  <footer class="site-footer">
+    <!-- Contact / Map -->
+    <div class="contact-section">
+      <!-- ...content gốc... -->
+    </div>
+
+    <!-- Footer Links / Logo / Newsletter -->
+    <div class="footer-content">
+      <div class="footer-container">
+        <!-- ...các section ... -->
+      </div>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+      <div class="copyright">
+        <p>Copyright © webhotel.vn All Rights Reserved</p>
+      </div>
+    </div>
+  </footer>
+</template>
+
     <div class="footer-content">
       <div class="footer-container">
         <!-- Left Section - Links -->
@@ -110,18 +133,19 @@
         <!-- Center Section - Logo & Social -->
         <div class="footer-center">
           <div class="footer-logo">
-            <h2 class="hotel-name">Sunset Hotel</h2>
-            <span class="hotel-subtitle">GRAND</span>
+            <h3 class="hotel-name">Blue Hotel</h3>
+            <div class="hotel-subtitle">Your home</div>
           </div>
+
           <div class="social-icons">
-            <a href="#" class="social-icon twitter" aria-label="Twitter">
-              <i class="icon">🐦</i>
+            <a href="https://twitter.com" target="_blank" rel="noopener" class="social-icon" aria-label="Twitter">
+              <img :src="twitter" alt="Twitter" class="icon-img" />
             </a>
-            <a href="#" class="social-icon facebook" aria-label="Facebook">
-              <i class="icon">📘</i>
+            <a href="https://facebook.com" target="_blank" rel="noopener" class="social-icon" aria-label="Facebook">
+              <img :src="facebook" alt="Facebook" class="icon-img" />
             </a>
-            <a href="#" class="social-icon instagram" aria-label="Instagram">
-              <i class="icon">📷</i>
+            <a href="https://instagram.com" target="_blank" rel="noopener" class="social-icon" aria-label="Instagram">
+              <img :src="instagram" alt="Instagram" class="icon-img" />
             </a>
           </div>
         </div>
@@ -160,11 +184,55 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import { useToast } from '@/composables/useToast.js'
+import twitter from '../assets/icons/twitter.png'
+import facebook from '../assets/icons/facebook.png'
+import instagram from '../assets/icons/instagram.png'
 
 const { showToast } = useToast()
 const email = ref('')
 const isSubscribing = ref(false)
 const isSubmittingContact = ref(false)
+
+const contactForm = reactive({
+  email: '',
+  name: '',
+  message: '',
+})
+
+const subscribeNewsletter = async () => {
+  if (!email.value) return
+  isSubscribing.value = true
+  try {
+    await new Promise((r) => setTimeout(r, 1500))
+    showToast({ type: 'success', title: 'Subscribed!', message: 'Thank you for subscribing.', duration: 4000 })
+    email.value = ''
+  } catch {
+    showToast({ type: 'error', title: 'Error', message: 'Failed to subscribe.', duration: 4000 })
+  } finally {
+    isSubscribing.value = false
+  }
+}
+
+const submitContactForm = async () => {
+  if (!contactForm.email || !contactForm.name || !contactForm.message) return
+  isSubmittingContact.value = true
+  try {
+    await new Promise((r) => setTimeout(r, 2000))
+    showToast({ type: 'success', title: 'Message Sent!', message: 'We will contact you soon.', duration: 4000 })
+    contactForm.email = contactForm.name = contactForm.message = ''
+  } catch {
+    showToast({ type: 'error', title: 'Error', message: 'Failed to send message.', duration: 4000 })
+  } finally {
+    isSubmittingContact.value = false
+  }
+}
+</script>
+
+
+<style scoped>
+/* ...existing styles... */
+.icon-img { width: 28px; height: 28px; }
+</style>
 
 const contactForm = reactive({
   email: '',
@@ -745,5 +813,22 @@ const submitContactForm = async () => {
     width: 100%;
     padding: 12px 30px;
   }
+
+.social-icons {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+  justify-content: center;
+}
+
+.icon-img {
+  width: 32px;
+  height: 32px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.icon-img:hover {
+  transform: scale(1.1);
+  opacity: 0.8;
 }
 </style>
