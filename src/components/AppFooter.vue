@@ -96,6 +96,29 @@
       </div>
     </div>
 
+ <template>
+  <footer class="site-footer">
+    <!-- Contact / Map -->
+    <div class="contact-section">
+      <!-- ...content gốc... -->
+    </div>
+
+    <!-- Footer Links / Logo / Newsletter -->
+    <div class="footer-content">
+      <div class="footer-container">
+        <!-- ...các section ... -->
+      </div>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+      <div class="copyright">
+        <p>Copyright © webhotel.vn All Rights Reserved</p>
+      </div>
+    </div>
+  </footer>
+</template>
+
     <div class="footer-content">
       <div class="footer-container">
         <!-- Left Section - Links -->
@@ -108,18 +131,24 @@
         </div>
 
         <!-- Center Section - Logo & Social -->
-       <div class="social-icons">
-          <a href="https://twitter.com" target="_blank" class="social-icon twitter" aria-label="Twitter">
-            <img src="@/assets/icons/twitter.png" alt="Twitter" class="icon-img" />
-          </a>
-          <a href="https://facebook.com" target="_blank" class="social-icon facebook" aria-label="Facebook">
-            <img src="@/assets/icons/facebook.png" alt="Facebook" class="icon-img" />
-          </a>
-          <a href="https://instagram.com" target="_blank" class="social-icon instagram" aria-label="Instagram">
-            <img src="@/assets/icons/instagram.png" alt="Instagram" class="icon-img" />
-          </a>
-        </div>
+        <div class="footer-center">
+          <div class="footer-logo">
+            <h3 class="hotel-name">Blue Hotel</h3>
+            <div class="hotel-subtitle">Your home</div>
+          </div>
 
+          <div class="social-icons">
+            <a href="https://twitter.com" target="_blank" rel="noopener" class="social-icon" aria-label="Twitter">
+              <img :src="twitter" alt="Twitter" class="icon-img" />
+            </a>
+            <a href="https://facebook.com" target="_blank" rel="noopener" class="social-icon" aria-label="Facebook">
+              <img :src="facebook" alt="Facebook" class="icon-img" />
+            </a>
+            <a href="https://instagram.com" target="_blank" rel="noopener" class="social-icon" aria-label="Instagram">
+              <img :src="instagram" alt="Instagram" class="icon-img" />
+            </a>
+          </div>
+        </div>
 
         <!-- Right Section - Newsletter -->
         <div class="footer-section newsletter">
@@ -155,8 +184,6 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import { useToast } from '@/composables/useToast.js'
-
-// thêm import ảnh ở đây
 import twitter from '../assets/icons/twitter.png'
 import facebook from '../assets/icons/facebook.png'
 import instagram from '../assets/icons/instagram.png'
@@ -172,7 +199,47 @@ const contactForm = reactive({
   message: '',
 })
 
+const subscribeNewsletter = async () => {
+  if (!email.value) return
+  isSubscribing.value = true
+  try {
+    await new Promise((r) => setTimeout(r, 1500))
+    showToast({ type: 'success', title: 'Subscribed!', message: 'Thank you for subscribing.', duration: 4000 })
+    email.value = ''
+  } catch {
+    showToast({ type: 'error', title: 'Error', message: 'Failed to subscribe.', duration: 4000 })
+  } finally {
+    isSubscribing.value = false
+  }
+}
+
+const submitContactForm = async () => {
+  if (!contactForm.email || !contactForm.name || !contactForm.message) return
+  isSubmittingContact.value = true
+  try {
+    await new Promise((r) => setTimeout(r, 2000))
+    showToast({ type: 'success', title: 'Message Sent!', message: 'We will contact you soon.', duration: 4000 })
+    contactForm.email = contactForm.name = contactForm.message = ''
+  } catch {
+    showToast({ type: 'error', title: 'Error', message: 'Failed to send message.', duration: 4000 })
+  } finally {
+    isSubmittingContact.value = false
+  }
+}
 </script>
+
+
+<style scoped>
+/* ...existing styles... */
+.icon-img { width: 28px; height: 28px; }
+</style>
+
+const contactForm = reactive({
+  email: '',
+  name: '',
+  message: '',
+})
+
 const subscribeNewsletter = async () => {
   if (!email.value) return
 
