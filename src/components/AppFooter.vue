@@ -22,7 +22,7 @@
               <div class="contact-icon">📞</div>
               <div class="contact-details">
                 <h4>TEL</h4>
-                <p>0242 2420 777</p>
+                <p>0329 586 459</p>
               </div>
             </div>
 
@@ -30,7 +30,7 @@
               <div class="contact-icon">✉️</div>
               <div class="contact-details">
                 <h4>E-MAIL</h4>
-                <p>info@webhotel.vn</p>
+                <p>dangkien03@webhotel.vn</p>
               </div>
             </div>
           </div>
@@ -46,7 +46,7 @@
                 allowfullscreen=""
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"
-                title="Sunset Hotel Location"
+                title="Blue Hotel Location"
               ></iframe>
             </div>
           </div>
@@ -108,23 +108,18 @@
         </div>
 
         <!-- Center Section - Logo & Social -->
-        <div class="footer-center">
-          <div class="footer-logo">
-            <h2 class="hotel-name">Sunset Hotel</h2>
-            <span class="hotel-subtitle">GRAND</span>
-          </div>
-          <div class="social-icons">
-            <a href="#" class="social-icon twitter" aria-label="Twitter">
-              <i class="icon">🐦</i>
-            </a>
-            <a href="#" class="social-icon facebook" aria-label="Facebook">
-              <i class="icon">📘</i>
-            </a>
-            <a href="#" class="social-icon instagram" aria-label="Instagram">
-              <i class="icon">📷</i>
-            </a>
-          </div>
+       <div class="social-icons">
+          <a href="https://twitter.com" target="_blank" class="social-icon twitter" aria-label="Twitter">
+            <img src="@/assets/icons/twitter.png" alt="Twitter" class="icon-img" />
+          </a>
+          <a href="https://facebook.com" target="_blank" class="social-icon facebook" aria-label="Facebook">
+            <img src="@/assets/icons/facebook.png" alt="Facebook" class="icon-img" />
+          </a>
+          <a href="https://instagram.com" target="_blank" class="social-icon instagram" aria-label="Instagram">
+            <img src="@/assets/icons/instagram.png" alt="Instagram" class="icon-img" />
+          </a>
         </div>
+
 
         <!-- Right Section - Newsletter -->
         <div class="footer-section newsletter">
@@ -161,6 +156,11 @@
 import { ref, reactive } from 'vue'
 import { useToast } from '@/composables/useToast.js'
 
+// thêm import ảnh ở đây
+import twitter from '../assets/icons/twitter.png'
+import facebook from '../assets/icons/facebook.png'
+import instagram from '../assets/icons/instagram.png'
+
 const { showToast } = useToast()
 const email = ref('')
 const isSubscribing = ref(false)
@@ -172,6 +172,7 @@ const contactForm = reactive({
   message: '',
 })
 
+</script>
 const subscribeNewsletter = async () => {
   if (!email.value) return
 
@@ -745,5 +746,22 @@ const submitContactForm = async () => {
     width: 100%;
     padding: 12px 30px;
   }
+
+.social-icons {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+  justify-content: center;
+}
+
+.icon-img {
+  width: 32px;
+  height: 32px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.icon-img:hover {
+  transform: scale(1.1);
+  opacity: 0.8;
 }
 </style>
