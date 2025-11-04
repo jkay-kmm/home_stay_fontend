@@ -20,7 +20,7 @@ export const useAuthStore = defineStore('auth', {
     // Khởi tạo store từ localStorage
     initializeAuth() {
       const token = authService.getToken()
-      const user = authService.getUser()
+      const user = authService.getCurrentUser()
 
       if (token && user) {
         this.token = token

@@ -1,85 +1,117 @@
-import api from './api.js'
+import axios from 'axios'
+
+const API_BASE_URL = 'http://localhost:5000/api/auth'
+
+// Create axios instance with base configuration
+const authAPI = axios.create({
+  baseURL: API_BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+})
+
+// Add request interceptor to include auth token
+authAPI.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('auth_token')
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`
+    }
+    return config
+  },
+  (error) => {
+    return Promise.reject(error)
+  },
+)
 
 export const authService = {
   // Đăng nhập
   login: async (credentials) => {
-    const loginData = {
-      email: credentials.email,
-      password: credentials.password,
-    }
+    try {
+      const response = await authAPI.post('/login', {
+        email: credentials.email,
+        password: credentials.password,
+      })
 
-    const response = await api.post('/auth/login', loginData)
+      const { token, user } = response.data
 
-    // Lưu token và thông tin user vào localStorage nếu có
-    if (response.access_token) {
-      localStorage.setItem('access_token', response.access_token)
-    }
-    if (response.user) {
-      localStorage.setItem('user', JSON.stringify(response.user))
-    }
+      // Store token and user data
+      localStorage.setItem('auth_token', token)
+      localStorage.setItem('user_data', JSON.stringify(user))
 
-    return response
+      return {
+        success: true,
+        data: { token, user },
+        message: 'Login successful',
+      }
+    } catch (error) {
+      return {
+        success: false,
+        message: error.response?.data?.message || 'Login failed',
+        errors: error.response?.data?.errors || [],
+      }
+    }
   },
 
   // Đăng ký
   register: async (userData) => {
-    // Chuyển đổi dữ liệu để phù hợp với API
-    const registerData = {
-      name: `${userData.firstName} ${userData.lastName}`,
-      email: userData.email,
-      password: userData.password,
-    }
+    try {
+      const response = await authAPI.post('/register', {
+        name: userData.name,
+        email: userData.email,
+        password: userData.password,
+      })
 
-    const response = await api.post('/auth/register', registerData)
-    return response
+      const { token, user } = response.data
+
+      // Store token and user data
+      localStorage.setItem('auth_token', token)
+      localStorage.setItem('user_data', JSON.stringify(user))
+
+      return {
+        success: true,
+        data: { token, user },
+        message: 'Registration successful',
+      }
+    } catch (error) {
+      return {
+        success: false,
+        message: error.response?.data?.message || 'Registration failed',
+        errors: error.response?.data?.errors || [],
+      }
+    }
   },
 
-  // Đăng xuất
+  // Logout user
   logout: async () => {
     try {
-      await api.post('/auth/logout')
+      await authAPI.post('/logout')
     } catch (error) {
-      // Bỏ qua lỗi từ server khi logout
       console.error('Logout error:', error)
     } finally {
-      // Luôn xóa dữ liệu local
-      localStorage.removeItem('access_token')
-      localStorage.removeItem('user')
+      // Always clear local storage
+      localStorage.removeItem('auth_token')
+      localStorage.removeItem('user_data')
     }
   },
 
-  // Refresh token
-  refreshToken: async () => {
-    try {
-      const response = await api.post('/auth/refresh')
-
-      if (response.data.access_token) {
-        localStorage.setItem('access_token', response.data.access_token)
-      }
-
-      return response.data
-    } catch (error) {
-      // Nếu refresh token thất bại, logout user
-      localStorage.removeItem('access_token')
-      localStorage.removeItem('user')
-      throw error
-    }
+  // Get current user
+  getCurrentUser: () => {
+    const userData = localStorage.getItem('user_data')
+    return userData ? JSON.parse(userData) : null
   },
-  // Kiểm tra xem user đã đăng nhập chưa
+
+  // Check if user is authenticated
   isAuthenticated: () => {
-    const token = localStorage.getItem('access_token')
-    const user = localStorage.getItem('user')
+    const token = localStorage.getItem('auth_token')
+    const user = authService.getCurrentUser()
     return !!(token && user)
   },
 
-  // Lấy thông tin user từ localStorage
-  getUser: () => {
-    const userStr = localStorage.getItem('user')
-    return userStr ? JSON.parse(userStr) : null
-  },
-
-  // Lấy token từ localStorage
+  // Get auth token
   getToken: () => {
-    return localStorage.getItem('access_token')
+    return localStorage.getItem('auth_token')
   },
 }
+
+export default authService

@@ -1,5 +1,10 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import ReviewsSection from '@/components/ReviewsSection.vue'
+import FAQSection from '@/components/FAQSection.vue'
+import BookingForm from '@/components/BookingForm.vue'
+import AuthModal from '@/components/AuthModal.vue'
+import authService from '@/services/authService.js'
 
 const searchForm = ref({
   location: '',
@@ -8,9 +13,44 @@ const searchForm = ref({
   guests: 1,
 })
 
+const showBookingForm = ref(false)
+const showAuthModal = ref(false)
+const authModalMode = ref('login') // 'login' or 'register'
+const currentUser = ref(null)
+const isAuthenticated = ref(false)
+
+onMounted(() => {
+  // Check if user is already authenticated
+  if (authService.isAuthenticated()) {
+    currentUser.value = authService.getCurrentUser()
+    isAuthenticated.value = true
+  }
+})
+
 const handleSearch = () => {
   console.log('Search form:', searchForm.value)
   // TODO: Implement search functionality
+}
+
+const handleBookingSubmitted = (bookingData) => {
+  console.log('Booking submitted:', bookingData)
+}
+
+const openAuthModal = (mode = 'login') => {
+  authModalMode.value = mode
+  showAuthModal.value = true
+}
+
+const closeAuthModal = () => {
+  showAuthModal.value = false
+}
+
+const handleAuthSuccess = (authData) => {
+  currentUser.value = authData.user
+  isAuthenticated.value = true
+
+  // Refresh page data if needed
+  console.log('User authenticated:', authData.user)
 }
 </script>
 
@@ -95,12 +135,11 @@ const handleSearch = () => {
 
             <div class="welcome-description">
               <p>
-                Blue Hotel is located in the west of Hanoi. Blue Hotel is a great destination
-                and brings you the most enjoyable experience when you come to us. Come to Blue
-                Hotel, you will be immersed in fresh nature, to participate in leisure activities,
-                relax to take away the sorrows and chaos of life. Blue Hotel with all kinds of
-                amenities and modern bungalows combined traditional style, restaurant system,
-                conference room.
+                Blue Hotel is located in the west of Hanoi. Blue Hotel is a great destination and
+                brings you the most enjoyable experience when you come to us. Come to Blue Hotel,
+                you will be immersed in fresh nature, to participate in leisure activities, relax to
+                take away the sorrows and chaos of life. Blue Hotel with all kinds of amenities and
+                modern bungalows combined traditional style, restaurant system, conference room.
               </p>
 
               <p>
@@ -196,9 +235,7 @@ const handleSearch = () => {
       <div class="welcome-blue-container">
         <!-- Header -->
         <div class="welcome-header">
-          <h1 class="welcome-title">
-            WELCOME TO <span class="blue-highlight">Blue HOTEL</span>
-          </h1>
+          <h1 class="welcome-title">WELCOME TO <span class="blue-highlight">Blue HOTEL</span></h1>
         </div>
 
         <div class="welcome-content-layout">
@@ -220,12 +257,11 @@ const handleSearch = () => {
 
             <div class="about-description">
               <p>
-                Blue Hotel is located in the west of Hanoi. Blue Hotel is a great destination
-                and brings you the most enjoyable experience when you come to us. Come to Blue
-                Hotel, you will be immersed in fresh nature, to participate in leisure activities,
-                relax to take away the sorrows and chaos of life. Blue Hotel with all kinds of
-                amenities and modern bungalows combined traditional style, restaurant system,
-                conference room.
+                Blue Hotel is located in the west of Hanoi. Blue Hotel is a great destination and
+                brings you the most enjoyable experience when you come to us. Come to Blue Hotel,
+                you will be immersed in fresh nature, to participate in leisure activities, relax to
+                take away the sorrows and chaos of life. Blue Hotel with all kinds of amenities and
+                modern bungalows combined traditional style, restaurant system, conference room.
               </p>
 
               <p>
@@ -241,12 +277,202 @@ const handleSearch = () => {
       </div>
     </section>
 
+    <!-- Reviews Section (only show for authenticated users) -->
+    <ReviewsSection v-if="isAuthenticated" />
+
+    <!-- FAQ Section -->
+    <FAQSection />
+
+    <!-- Call to Action Section for non-authenticated users -->
+    <section v-if="!isAuthenticated" class="auth-cta">
+      <div class="cta-container">
+        <h2>Ready to Start Your Journey?</h2>
+        <p>Join thousands of travelers who trust us for their accommodation needs</p>
+        <div class="cta-buttons">
+          <button class="cta-btn primary" @click="openAuthModal('register')">Get Started</button>
+          <button class="cta-btn secondary" @click="openAuthModal('login')">Sign In</button>
+        </div>
+      </div>
+    </section>
   </div>
+
+  <!-- Auth Modal -->
+  <AuthModal
+    :is-visible="showAuthModal"
+    :default-mode="authModalMode"
+    @close="closeAuthModal"
+    @auth-success="handleAuthSuccess"
+  />
+
+  <!-- Booking Form Modal (only for authenticated users) -->
+  <BookingForm
+    v-if="isAuthenticated"
+    :is-visible="showBookingForm"
+    @close="showBookingForm = false"
+    @booking-submitted="handleBookingSubmitted"
+  />
 </template>
 // THEMAPISAU
 <style scoped>
 .home-page {
   min-height: 100vh;
+}
+
+/* Auth Status & Buttons in Hero */
+.auth-status {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.welcome-message {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 12px 24px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-text {
+  color: white;
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.logout-btn {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.logout-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.auth-buttons {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.auth-btn {
+  padding: 12px 30px;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  font-size: 1rem;
+  min-width: 120px;
+}
+
+.auth-btn.login-btn {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  border-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.auth-btn.login-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.auth-btn.register-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: transparent;
+}
+
+.auth-btn.register-btn:hover {
+  background: linear-gradient(135deg, #5a6fd8 0%, #664890 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+/* Auth CTA Section */
+.auth-cta {
+  padding: 80px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  text-align: center;
+}
+
+.cta-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.auth-cta h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.auth-cta p {
+  font-size: 1.2rem;
+  margin-bottom: 2.5rem;
+  opacity: 0.9;
+  color: white;
+}
+
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.cta-btn {
+  padding: 15px 40px;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+  min-width: 160px;
+  border: 2px solid transparent;
+}
+
+.cta-btn.primary {
+  background: white;
+  color: #667eea;
+  border-color: white;
+}
+
+.cta-btn.primary:hover {
+  background: transparent;
+  color: white;
+  border-color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+}
+
+.cta-btn.secondary {
+  background: transparent;
+  color: white;
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.cta-btn.secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
 }
 
 .hero {
@@ -263,7 +489,11 @@ const handleSearch = () => {
   left: 0;
   right: 0;
   bottom: 0;
-  background: url('@/assets/anhnen.jpg') center center / cover no-repeat;
+  background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%);
+  background-image: url('@/assets/anhnen.jpg');
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .hero-overlay {
@@ -917,6 +1147,37 @@ const handleSearch = () => {
 
   .room-price {
     font-size: 1rem;
+  }
+
+  /* Auth responsive */
+  .auth-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .auth-btn {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .welcome-message {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .auth-cta h2 {
+    font-size: 2rem;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cta-btn {
+    width: 100%;
+    max-width: 280px;
   }
 }
 </style>

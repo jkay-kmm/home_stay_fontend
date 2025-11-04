@@ -58,6 +58,23 @@
         <router-link to="/blog" class="nav-link">BLOG</router-link>
         <router-link to="/gallery" class="nav-link">GALLERY</router-link>
         <router-link to="/contact" class="nav-link">CONTACT</router-link>
+
+        <!-- Desktop Auth Section -->
+        <div class="desktop-auth">
+          <!-- Authenticated User -->
+          <div v-if="isAuthenticated" class="user-section">
+            <span class="welcome-text">Welcome, {{ currentUser?.name }}</span>
+            <button class="auth-btn logout-btn" @click="handleLogout">Logout</button>
+          </div>
+
+          <!-- Non-authenticated -->
+          <div v-else class="auth-buttons">
+            <button class="auth-btn login-btn" @click="openAuthModal('login')">Login</button>
+            <button class="auth-btn register-btn" @click="openAuthModal('register')">
+              Register
+            </button>
+          </div>
+        </div>
       </div>
 
       <!-- Mobile Menu Button -->
@@ -86,13 +103,24 @@
           >CONTACT</router-link
         >
       </div>
+
+      <!-- Mobile Auth Section -->
       <div class="mobile-auth">
-        <router-link to="/login" class="mobile-auth-btn login-btn" @click="closeMobileMenu"
-          >Đăng nhập</router-link
-        >
-        <router-link to="/register" class="mobile-auth-btn register-btn" @click="closeMobileMenu"
-          >Đăng ký</router-link
-        >
+        <!-- Authenticated User -->
+        <div v-if="isAuthenticated" class="mobile-user-section">
+          <div class="mobile-user-info">
+            <span class="mobile-welcome">Welcome, {{ currentUser?.name }}</span>
+          </div>
+          <button class="mobile-auth-btn logout-btn" @click="handleLogout">Logout</button>
+        </div>
+
+        <!-- Non-authenticated -->
+        <div v-else class="mobile-auth-buttons">
+          <button class="mobile-auth-btn login-btn" @click="handleMobileLogin">Login</button>
+          <button class="mobile-auth-btn register-btn" @click="handleMobileRegister">
+            Register
+          </button>
+        </div>
       </div>
     </div>
 
@@ -103,12 +131,37 @@
       @click="closeMobileMenu"
     ></div>
   </nav>
+
+  <!-- Auth Modal -->
+  <AuthModal
+    :isVisible="showAuthModal"
+    :defaultMode="authModalType"
+    @close="closeAuthModal"
+    @auth-success="handleAuthSuccess"
+  />
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import authService from '@/services/authService.js'
+import { useToast } from '@/composables/useToast.js'
+import AuthModal from '@/components/AuthModal.vue'
+
+const { showToast } = useToast()
 
 const isMobileMenuOpen = ref(false)
+const currentUser = ref(null)
+const isAuthenticated = ref(false)
+const showAuthModal = ref(false)
+const authModalType = ref('login')
+
+onMounted(() => {
+  // Check if user is already authenticated
+  if (authService.isAuthenticated()) {
+    currentUser.value = authService.getCurrentUser()
+    isAuthenticated.value = true
+  }
+})
 
 const toggleMobileMenu = () => {
   isMobileMenuOpen.value = !isMobileMenuOpen.value
@@ -116,6 +169,66 @@ const toggleMobileMenu = () => {
 
 const closeMobileMenu = () => {
   isMobileMenuOpen.value = false
+}
+
+const handleLogout = async () => {
+  try {
+    await authService.logout()
+    currentUser.value = null
+    isAuthenticated.value = false
+
+    showToast({
+      type: 'success',
+      title: 'Logged Out',
+      message: 'You have been successfully logged out.',
+      duration: 3000,
+    })
+
+    // Redirect to home page
+    window.location.href = '/'
+  } catch (error) {
+    console.error('Logout error:', error)
+    showToast({
+      type: 'error',
+      title: 'Logout Error',
+      message: 'There was an error logging out.',
+      duration: 3000,
+    })
+  }
+}
+
+const openAuthModal = (type) => {
+  console.log('openAuthModal called with type:', type)
+  authModalType.value = type
+  showAuthModal.value = true
+  console.log('showAuthModal set to:', showAuthModal.value)
+}
+
+const closeAuthModal = () => {
+  showAuthModal.value = false
+}
+
+const handleMobileLogin = () => {
+  openAuthModal('login')
+  closeMobileMenu()
+}
+
+const handleMobileRegister = () => {
+  openAuthModal('register')
+  closeMobileMenu()
+}
+
+const handleAuthSuccess = (userData) => {
+  currentUser.value = userData.user
+  isAuthenticated.value = true
+  closeAuthModal()
+
+  showToast({
+    type: 'success',
+    title: 'Welcome!',
+    message: `Successfully ${authModalType.value === 'login' ? 'logged in' : 'registered'}!`,
+    duration: 3000,
+  })
 }
 </script>
 
@@ -237,6 +350,75 @@ const closeMobileMenu = () => {
 
 .nav-right {
   justify-content: flex-end;
+}
+
+/* Desktop Auth Styles */
+.desktop-auth {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+}
+
+.user-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.welcome-text {
+  color: #8b4513;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.auth-btn {
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: 2px solid;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  background: none;
+}
+
+.login-btn {
+  color: #8b4513;
+  border-color: #8b4513;
+  background: transparent;
+}
+
+.login-btn:hover {
+  background: #8b4513;
+  color: white;
+}
+
+.register-btn {
+  color: white;
+  border-color: #8b4513;
+  background: #8b4513;
+}
+
+.register-btn:hover {
+  background: #6b3410;
+  border-color: #6b3410;
+}
+
+.logout-btn {
+  color: white;
+  border-color: #dc3545;
+  background: #dc3545;
+}
+
+.logout-btn:hover {
+  background: #c82333;
+  border-color: #c82333;
 }
 
 .nav-link {
@@ -367,6 +549,32 @@ const closeMobileMenu = () => {
   gap: 10px;
 }
 
+.mobile-user-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+.mobile-user-info {
+  text-align: center;
+}
+
+.mobile-welcome {
+  color: #8b4513;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.mobile-auth-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .mobile-auth-btn {
   text-decoration: none;
   padding: 12px 20px;
@@ -374,6 +582,9 @@ const closeMobileMenu = () => {
   text-align: center;
   font-weight: 500;
   transition: all 0.3s ease;
+  border: 2px solid transparent;
+  cursor: pointer;
+  background: none;
 }
 
 .login-btn {
@@ -382,10 +593,31 @@ const closeMobileMenu = () => {
   border: 2px solid #8b4513;
 }
 
+.login-btn:hover {
+  background: #8b4513;
+  color: white;
+}
+
 .register-btn {
   background: #8b4513;
   color: white;
   border: 2px solid #8b4513;
+}
+
+.register-btn:hover {
+  background: #6b3410;
+  border-color: #6b3410;
+}
+
+.logout-btn {
+  background: #dc3545;
+  color: white;
+  border: 2px solid #dc3545;
+}
+
+.logout-btn:hover {
+  background: #c82333;
+  border-color: #c82333;
 }
 
 .mobile-overlay {

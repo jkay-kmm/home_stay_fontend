@@ -100,10 +100,14 @@
       <div class="footer-container">
         <!-- Left Section - Links -->
         <div class="footer-section">
+          <h3 class="footer-section-title">QUICK LINKS</h3>
           <ul class="footer-links">
             <li><a href="/conditions" class="footer-link">CONDITIONS & TERMS</a></li>
             <li><a href="/privacy" class="footer-link">PRIVACY POLICY</a></li>
             <li><a href="/location" class="footer-link">LOCATION & MAP</a></li>
+            <li><a href="/gallery" class="footer-link">PHOTO GALLERY</a></li>
+            <li><a href="/blog" class="footer-link">BLOG & NEWS</a></li>
+            <li><a href="/contact" class="footer-link">CONTACT US</a></li>
           </ul>
         </div>
 
@@ -114,14 +118,45 @@
             <span class="hotel-subtitle">GRAND</span>
           </div>
           <div class="social-icons">
-            <a href="#" class="social-icon twitter" aria-label="Twitter">
+            <a
+              href="https://twitter.com/sunsethotel"
+              class="social-icon twitter"
+              aria-label="Twitter"
+              target="_blank"
+            >
               <i class="icon">🐦</i>
             </a>
-            <a href="#" class="social-icon facebook" aria-label="Facebook">
+            <a
+              href="https://facebook.com/sunsethotel"
+              class="social-icon facebook"
+              aria-label="Facebook"
+              target="_blank"
+            >
               <i class="icon">📘</i>
             </a>
-            <a href="#" class="social-icon instagram" aria-label="Instagram">
+            <a
+              href="https://instagram.com/sunsethotel"
+              class="social-icon instagram"
+              aria-label="Instagram"
+              target="_blank"
+            >
               <i class="icon">📷</i>
+            </a>
+            <a
+              href="https://youtube.com/sunsethotel"
+              class="social-icon youtube"
+              aria-label="YouTube"
+              target="_blank"
+            >
+              <i class="icon">📺</i>
+            </a>
+            <a
+              href="https://tiktok.com/@sunsethotel"
+              class="social-icon tiktok"
+              aria-label="TikTok"
+              target="_blank"
+            >
+              <i class="icon">🎵</i>
             </a>
           </div>
         </div>
@@ -521,6 +556,25 @@ const submitContactForm = async () => {
   border-color: #f39c12;
   color: #f39c12;
   transform: translateY(-2px);
+}
+
+.social-icon.youtube:hover {
+  border-color: #ff0000;
+  color: #ff0000;
+}
+
+.social-icon.tiktok:hover {
+  border-color: #000000;
+  color: #000000;
+}
+
+.footer-section-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #ecf0f1;
+  margin-bottom: 20px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
 
 /* Newsletter Section */
