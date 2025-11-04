@@ -9,29 +9,19 @@
         </span>
         <span class="contact-item">
           <i class="phone-icon">📞</i>
-          0329 586 459
+          0242 2420 777
         </span>
       </div>
-      <script setup>
-import twitterIcon from '@/assets/icons/twitter.png'
-import facebookIcon from '@/assets/icons/facebook.png'
-import instagramIcon from '@/assets/icons/instagram.png'
-</script>
-
-  <template>
-    <div class="social-links">
-      <a href="#" class="social-link">
-        <img :src="twitterIcon" alt="Twitter" class="social-icon" />
-      </a>
-      <a href="#" class="social-link">
-        <img :src="facebookIcon" alt="Facebook" class="social-icon" />
-      </a>
-      <a href="#" class="social-link">
-        <img :src="instagramIcon" alt="Instagram" class="social-icon" />
-      </a>
-    </div>
-  </template>
-
+      <div class="social-links">
+        <a href="#" class="social-link">
+          <i class="social-icon twitter">🐦</i>
+        </a>
+        <a href="#" class="social-link">
+          <i class="social-icon facebook">📘</i>
+        </a>
+        <a href="#" class="social-link">
+          <i class="social-icon instagram">📷</i>
+        </a>
         <div class="language-search">
           <select class="language-select">
             <option value="en">en</option>
@@ -59,7 +49,7 @@ import instagramIcon from '@/assets/icons/instagram.png'
       <!-- Center Logo -->
       <div class="nav-logo">
         <router-link to="/" class="logo-link">
-          <h1 class="hotel-name">Blue Hotel</h1>
+          <h1 class="hotel-name">Sunset Hotel</h1>
         </router-link>
       </div>
 

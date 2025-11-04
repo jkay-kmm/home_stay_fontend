@@ -65,44 +65,6 @@ export const authService = {
       throw error
     }
   },
-
-  // Lấy thông tin user hiện tại
-  getCurrentUser: async () => {
-    try {
-      const response = await api.get('/auth/me')
-
-      // Cập nhật thông tin user trong localStorage
-      localStorage.setItem('user', JSON.stringify(response.data))
-
-      return response.data
-    } catch (error) {
-      throw error
-    }
-  },
-
-  // Quên mật khẩu
-  forgotPassword: async (email) => {
-    try {
-      const response = await api.post('/auth/forgot-password', { email })
-      return response.data
-    } catch (error) {
-      throw error
-    }
-  },
-
-  // Reset mật khẩu
-  resetPassword: async (token, newPassword) => {
-    try {
-      const response = await api.post('/auth/reset-password', {
-        token,
-        password: newPassword,
-      })
-      return response.data
-    } catch (error) {
-      throw error
-    }
-  },
-
   // Kiểm tra xem user đã đăng nhập chưa
   isAuthenticated: () => {
     const token = localStorage.getItem('access_token')
